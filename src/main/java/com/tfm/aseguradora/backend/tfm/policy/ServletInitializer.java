@@ -1,4 +1,4 @@
-package com.tfm.aseguradora.backend.tfm.users;
+package com.tfm.aseguradora.backend.tfm.policy;
 
 import org.springframework.boot.builder.SpringApplicationBuilder;
 import org.springframework.boot.web.servlet.support.SpringBootServletInitializer;

@@ -1,4 +1,4 @@
-package com.tfm.aseguradora.backend.tfm.users.config;
+package com.tfm.aseguradora.backend.tfm.policy.config;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.userdetails.User;
@@ -11,7 +11,11 @@ import java.util.*;
 
 @Service
 public class UsuarioDetailsService implements UserDetailsService  {
-
+  @Override
+  public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
+    return null;
+  }
+/*
   @Autowired
   private UserJpaRepository userJpaRepository;
   @Override
@@ -40,5 +44,5 @@ public class UsuarioDetailsService implements UserDetailsService  {
       throw new UsernameNotFoundException("Username [" + username + "] does not exist in the system");
     }
   }
-
+*/
 }

@@ -1,6 +1,6 @@
-package com.tfm.aseguradora.backend.tfm.users.config;
+package com.tfm.aseguradora.backend.tfm.policy.config;
 
-import com.tfm.aseguradora.backend.tfm.users.service.JwtUtilService;
+import com.tfm.aseguradora.backend.tfm.policy.service.JwtUtilService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.context.SecurityContextHolder;

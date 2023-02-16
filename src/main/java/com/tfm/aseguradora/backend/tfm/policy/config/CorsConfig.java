@@ -1,4 +1,4 @@
-package com.tfm.aseguradora.backend.tfm.users.config;
+package com.tfm.aseguradora.backend.tfm.policy.config;
 
 import org.springframework.context.annotation.Configuration;
 import org.springframework.web.servlet.config.annotation.CorsRegistry;

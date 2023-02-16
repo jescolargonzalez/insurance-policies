@@ -9,10 +9,10 @@
 		<relativePath/> <!-- lookup parent from repository -->
 	</parent>
 	<groupId>com.tfm.aseguradora</groupId>
-	<artifactId>insurance-users</artifactId>
+	<artifactId>insurance-policies</artifactId>
 	<version>0.0.1-SNAPSHOT</version>
 	<packaging>jar</packaging>
-	<name>backend.tfm.users</name>
+	<name>backend.tfm.policies</name>
 	<description>TFM - USUARIOS</description>
 
 	<properties>
@@ -100,7 +100,6 @@
 		<dependency>
 			<groupId>com.mysql</groupId>
 			<artifactId>mysql-connector-j</artifactId>
-			<scope>runtime</scope>
 		</dependency>
 		<dependency>
 			<groupId>org.mapstruct</groupId>
@@ -116,7 +115,7 @@
 				<groupId>org.springframework.boot</groupId>
 				<artifactId>spring-boot-maven-plugin</artifactId>
 				<configuration>
-					<mainClass>com.tfm.aseguradora.backend.tfm.users.Application</mainClass>
+					<mainClass>com.tfm.aseguradora.backend.tfm.policy.Application</mainClass>
 					<excludes>
 						<exclude>
 							<groupId>org.projectlombok</groupId>
@@ -156,14 +155,14 @@
 							<goal>generate</goal>
 						</goals>
 						<configuration>
-							<inputSpec>${project.basedir}/src/main/resources/users-api-contract.yml</inputSpec>
+							<inputSpec>${project.basedir}/src/main/resources/policies-api-contract.yml</inputSpec>
 							<language>spring</language>
 							<modelNameSuffix>Dto</modelNameSuffix>
-							<apiPackage>com.tfm.aseguradora.generated.backend.tfm.users.controller</apiPackage>
-							<modelPackage>com.tfm.aseguradora.generated.backend.tfm.users.controller</modelPackage>
+							<apiPackage>com.tfm.aseguradora.generated.backend.tfm.policies.controller</apiPackage>
+							<modelPackage>com.tfm.aseguradora.generated.backend.tfm.policies.controller</modelPackage>
 							<configOptions>
 								<java11>true</java11>
-								<sourceFolder>src/main/java/com/tfm/aseguradora/backend/tfm/users/controller</sourceFolder>
+								<sourceFolder>src/main/java/com/tfm/aseguradora/backend/tfm/policies/controller</sourceFolder>
 							</configOptions>
 						</configuration>
 					</execution>

@@ -66,6 +66,7 @@ paths:
                 $ref: '#/components/schemas/Policy'
         '405':
           description: Invalid input
+
   /polizyes/types:
     get:
       tags:
@@ -81,14 +82,49 @@ paths:
               schema:
                 type: array
                 items:
-                  $ref: '#/components/schemas/PolicyTypes'  
-  
-  /polizyes/{idPoliza}/parts:
+                  $ref: '#/components/schemas/PolicyTypes'
+
+  /polizyes/{idPolicy}/parts/{idPart}/peritage:
+    post:
+      tags:
+        - part
+      parameters:
+        - name: idPolicy
+          in: path
+          description: idPoliza of part that needs to be fetched
+          required: true
+          schema:
+            type: string
+        - name: idPart
+          in: path
+          description: idPart that needs to be fetched
+          required: true
+          schema:
+            type: string
+      summary: execute peritage action to part
+      description: execute peritage action to part
+      operationId: doPeritageAction
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Peritage'
+      responses:
+        '201':
+          description: successful operation
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Peritage'
+
+  /polizyes/{idPolicy}/parts:
     post:
       tags:
         - policy
       parameters:
-        - name: idPoliza
+        - name: idPolicy
           in: path
           description: idPoliza of part that needs to be fetched
           required: true
@@ -200,5 +236,18 @@ components:
       properties:
         idPart:
           type: integer
+        idDecission:
+          type: integer
         information:
+          type: string
+      required:
+        - idPart
+        - idDecission
+
+    Decission:
+      type: object
+      properties:
+        id:
+          type: integer
+        name:
           type: string

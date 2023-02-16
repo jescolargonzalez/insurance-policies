@@ -1,4 +1,4 @@
-package com.tfm.aseguradora.backend.tfm.users.service.exception;
+package com.tfm.aseguradora.backend.tfm.policy.service.exception;
 
 import lombok.*;
 

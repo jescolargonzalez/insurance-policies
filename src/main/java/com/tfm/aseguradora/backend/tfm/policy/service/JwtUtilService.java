@@ -1,4 +1,4 @@
-package com.tfm.aseguradora.backend.tfm.users.service;
+package com.tfm.aseguradora.backend.tfm.policy.service;
 
 import io.jsonwebtoken.Claims;
 import io.jsonwebtoken.Jwts;
