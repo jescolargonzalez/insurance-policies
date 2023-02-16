@@ -1,0 +1,14 @@
+spring:
+  datasource:
+    driver-class-name: com.mysql.cj.jdbc.Driver
+    password: ''
+    url: jdbc:mysql://localhost/policies?useSSL=false&useLegacyDatetimeCode=false&serverTimezone=UTC
+    username: root
+  jpa:
+    database-platform: org.hibernate.dialect.MySQL57Dialect
+    generate-ddl: false
+  flyway:
+    enabled: true
+    locations: classpath:/db/migration
+    schemas: policies
+    flyway.baseline-on-migrate: true

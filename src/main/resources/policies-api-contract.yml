@@ -1,0 +1,204 @@
+openapi: 3.0.3
+info:
+  title: · TFM · SWAGGER - YML - OpenAPI 3.0
+  description: |-
+    YML - BACKEND2 - polizy/parts/peritage
+  version: 1.0.11
+externalDocs:
+  description: Find out more about Swagger
+  url: http://swagger.io
+  
+tags:
+  - name: policy
+    description: Operations about policy
+  - name: part
+    description: Operations about part
+  - name: peritage
+    description: Operations about peritage
+    
+paths:
+  /polizyes:
+    get:
+      tags:
+        - policy
+      summary: Find policy by dni
+      description: Returns a single policy
+      operationId: getPolicyByDni
+      parameters:
+        - name: tomadorDni
+          in: query
+          description: filter tomadorDni
+          schema:
+            type: string
+        - name: benefitDni
+          in: query
+          description: filter benefitDni
+          schema:
+            type: string  
+      responses:
+        '200':
+          description: successful operation
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Policy'          
+        '400':
+          description: Invalid DNI supplied
+        '404':
+          description: Policy not found
+    post:
+      tags:
+        - policy
+      summary: create a policy for a user
+      description: create a new policy in the bbdd
+      operationId: createPolicy
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Policy'
+      responses:
+        '200':
+          description: successful operation - poliza creada
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Policy'
+        '405':
+          description: Invalid input
+  /polizyes/types:
+    get:
+      tags:
+        - policy
+      summary: Finds types of police
+      description: return types
+      operationId: findTypesOfPolicy
+      responses:
+        '200':
+          description: successful operation
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/PolicyTypes'  
+  
+  /polizyes/{idPoliza}/parts:
+    post:
+      tags:
+        - policy
+      parameters:
+        - name: idPoliza
+          in: path
+          description: idPoliza of part that needs to be fetched
+          required: true
+          schema:
+            type: string     
+      summary: Place a part for a policy
+      description: Place a new part in the policy?
+      operationId: savePart
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Part'
+      responses:
+        '201':
+          description: successful operation
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Policy'
+        '405':
+            description: Invalid input
+            
+  /users/{benefitDni}/parts:
+    get:
+      tags:
+        - part
+      summary: Get parts by benefitDni
+      description: ''
+      operationId: getPartsByDni
+      parameters:
+        - name: benefitDni
+          in: path
+          description: '¿?-¿?'
+          required: true
+          schema:
+            type: string
+      responses:
+        '200':
+          description: successful operation
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Part'          
+        '400':
+          description: Invalid benefitDni supplied
+        '404':
+            description: part not found         
+    
+            
+components:
+  schemas:
+    Policy:
+      type: object
+      properties:
+        id:
+          type: integer
+          format: int64
+        userDni:
+          type: string
+          example: '11111111A'
+        benefitDni:
+          type: string
+          example: '22222222B'
+        type:
+          type: string
+          description: policy type
+          enum:
+            - fullrisk
+            - thirds
+            
+    PolicyTypes:
+      type: object
+      properties:
+        id:
+          type: integer
+        name: 
+          type: string
+        description: 
+          enum:
+            - fullrisk
+            - thirds
+      required:
+        - name
+    Part:
+      type: object
+      properties:
+        id:
+          type: integer
+          format: int64
+        benefitDni:
+          type: string
+        affectedDni:
+          type: string
+        policyId:
+          type: integer
+          format: int64
+        addInfo:
+          type: string     
+        pay:
+          type: boolean 
+      required:
+        - benefitDni
+        - affectedDni
+        - policyId
+        
+    Peritage:
+      type: object
+      properties:
+        idPart:
+          type: integer
+        information:
+          type: string
