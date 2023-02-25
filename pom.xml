@@ -107,7 +107,20 @@
 			<version>1.5.3.Final</version>
 		</dependency>
 
-	</dependencies>
+		<dependency>
+			<groupId>com.google.code.findbugs</groupId>
+			<artifactId>jsr305</artifactId>
+			<version>3.0.2</version>
+		</dependency>
+        <dependency>
+            <groupId>org.jetbrains</groupId>
+            <artifactId>annotations</artifactId>
+            <version>23.0.0</version>
+            <scope>compile</scope>
+        </dependency>
+
+
+    </dependencies>
 
 	<build>
 		<plugins>
@@ -163,6 +176,32 @@
 							<configOptions>
 								<java11>true</java11>
 								<sourceFolder>src/main/java/com/tfm/aseguradora/backend/tfm/policies/controller</sourceFolder>
+							</configOptions>
+						</configuration>
+					</execution>
+					<execution>
+						<id>generate-users-core-rest-client</id>
+						<goals>
+							<goal>generate</goal>
+						</goals>
+						<configuration>
+							<generatorName>java</generatorName>
+							<inputSpec>${project.basedir}/src/main/resources/users-api-contract.yml</inputSpec>
+							<library>resttemplate</library>
+							<modelNameSuffix>Dto</modelNameSuffix>
+							<apiPackage>com.tfm.aseguradora.backend.middle.users.client</apiPackage>
+							<modelPackage>com.tfm.aseguradora.backend.middle.users.dto</modelPackage>
+							<generateSupportingFiles>true</generateSupportingFiles>
+							<supportingFilesToGenerate>ApiClient.java,JavaTimeFormatter.java,Authentication.java,ApiKeyAuth.java,RFC3339DateFormat.java,HttpBasicAuth.java,HttpBearerAuth.java</supportingFilesToGenerate>
+							<generateApiTests>false</generateApiTests>
+							<generateModelTests>false</generateModelTests>
+							<generateApiDocumentation>false</generateApiDocumentation>
+							<generateModelDocumentation>false</generateModelDocumentation>
+							<configOptions>
+								<useBeanValidation>true</useBeanValidation>
+								<dateLibrary>java8</dateLibrary>
+								<java8>true</java8>
+								<hideGenerationTimestamp>true</hideGenerationTimestamp>
 							</configOptions>
 						</configuration>
 					</execution>

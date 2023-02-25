@@ -12,3 +12,9 @@ spring:
     locations: classpath:/db/migration
     schemas: policies
     flyway.baseline-on-migrate: true
+
+rest:
+  client:
+    core:
+      users:
+        host: http://localhost:8081

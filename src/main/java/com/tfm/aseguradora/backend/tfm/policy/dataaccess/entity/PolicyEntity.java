@@ -33,10 +33,10 @@ public class PolicyEntity {
     private List<PartEntity> parts;
 
     @Column(name = "create_time")
-    private LocalDate create_time;
+    private LocalDate createTime;
 
     @Column(name = "update_time")
-    private LocalDate update_time;
+    private LocalDate updateTime;
 
     @Column(name = "deleted")
     private Boolean deleted;

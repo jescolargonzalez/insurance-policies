@@ -20,7 +20,7 @@ import org.springframework.security.web.authentication.UsernamePasswordAuthentic
 public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 
     @Autowired
-    private UserDetailsService usuarioDetailsService;
+    private UsuarioDetailsService usuarioDetailsService;
 
     @Autowired
     private JwtRequestFilter jwtRequestFilter;
@@ -44,6 +44,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
                 .authorizeRequests()
                 .antMatchers("/security/authenticate").permitAll()
                 .antMatchers(HttpMethod.POST, "/users").permitAll()
+                .antMatchers(HttpMethod.GET,"/polizyes").permitAll()
                 .antMatchers("/swagger-ui/**").permitAll()
                 .antMatchers("/swagger/**").permitAll()
                 .antMatchers("/admin/**").hasRole("ADMIN")

@@ -28,13 +28,15 @@ paths:
         - name: tomadorDni
           in: query
           description: filter tomadorDni
+          required: false
           schema:
             type: string
         - name: benefitDni
           in: query
+          required: false
           description: filter benefitDni
           schema:
-            type: string  
+            type: string
       responses:
         '200':
           description: successful operation
@@ -230,6 +232,14 @@ components:
         - benefitDni
         - affectedDni
         - policyId
+
+    PartsListWrapper:
+      type: object
+      properties:
+        parts:
+          type: array
+          items:
+            $ref: '#/components/schemas/Part'
         
     Peritage:
       type: object
@@ -250,4 +260,17 @@ components:
         id:
           type: integer
         name:
+          type: string
+
+    ErrorMessage:
+      type: object
+      properties:
+        statusCode:
+          type: integer
+        timestamp:
+          type: string
+          format: date-time
+        message:
+          type: string
+        description:
           type: string

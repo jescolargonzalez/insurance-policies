@@ -11,6 +11,7 @@ import java.util.*;
 @Entity
 @Table(name = "decissions")
 public class DecissionTypeEntity {
+
     private static final long serialVersionUID = -912412431249214L;
 
     @Id
