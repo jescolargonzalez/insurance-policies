@@ -29,7 +29,7 @@ public class UsuarioDetailsService implements UserDetailsService  {
             var roles = userDto.getRoles();
             if (roles != null && !roles.isEmpty()) {
                 User.UserBuilder userBuilder = User.withUsername(username);
-                String encryptedPassword = userDto.getPassword();
+                String encryptedPassword = "nonEmpty";
                 String[] rolesListString = roles.stream()
                         .map(RolDto::getNombre)
                         .toArray(String[]::new);

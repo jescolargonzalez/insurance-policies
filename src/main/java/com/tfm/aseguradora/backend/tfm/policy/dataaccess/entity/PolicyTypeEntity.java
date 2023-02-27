@@ -13,15 +13,15 @@ public class PolicyTypeEntity {
 
     private static final long serialVersionUID = -912412796449214L;
 
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Id
     @Column(name = "id")
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
 
     @Column(name = "name")
     private String name;
 
-    @Column(name = "description")
+    @Column(name = "descr")
     private String description;
 
     @OneToMany(mappedBy = "type")

@@ -7,8 +7,7 @@ import org.mapstruct.*;
 @Mapper(componentModel = "spring")
 public interface PolicyDtoMapper {
 
-    PolicyDto domainToDTO(PolicyDomain policyDomain) ;
-
+    PolicyDto domainToDTO(PolicyDomain policyDomain);
 
     PolicyDomain DtoToDomain(PolicyDto policyDto);
 }

@@ -9,9 +9,10 @@ public class PolicyDomain {
 
     private Integer tomadorId;
 
+    private Integer vehicleId;
+
     private Integer typeId;
 
     private String benefitDni;
-
 
 }

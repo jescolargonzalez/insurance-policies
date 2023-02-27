@@ -82,9 +82,8 @@ paths:
           content:
             application/json:
               schema:
-                type: array
-                items:
-                  $ref: '#/components/schemas/PolicyTypes'
+                type: object
+                $ref: '#/components/schemas/PolicyesTypesWrapper'
 
   /polizyes/{idPolicy}/parts/{idPart}/peritage:
     post:
@@ -103,6 +102,7 @@ paths:
           required: true
           schema:
             type: string
+
       summary: execute peritage action to part
       description: execute peritage action to part
       operationId: doPeritageAction
@@ -117,9 +117,7 @@ paths:
           content:
             application/json:
               schema:
-                type: array
-                items:
-                  $ref: '#/components/schemas/Peritage'
+                $ref: '#/components/schemas/Peritage'
 
   /polizyes/{idPolicy}/parts:
     post:
@@ -185,32 +183,36 @@ components:
         id:
           type: integer
           format: int64
-        userDni:
-          type: string
-          example: '11111111A'
+        tomadorId:
+          type: integer
+        vehicleId:
+          type: integer
         benefitDni:
           type: string
           example: '22222222B'
-        type:
-          type: string
-          description: policy type
-          enum:
-            - fullrisk
-            - thirds
-            
-    PolicyTypes:
+        typeId:
+          type: integer
+
+    PolicyType:
       type: object
       properties:
         id:
           type: integer
-        name: 
+        name:
           type: string
-        description: 
-          enum:
-            - fullrisk
-            - thirds
+        description:
+          type: string
       required:
         - name
+
+    PolicyesTypesWrapper:
+      type: object
+      properties:
+        types:
+          type: array
+          items:
+            $ref: '#/components/schemas/PolicyType'
+
     Part:
       type: object
       properties:

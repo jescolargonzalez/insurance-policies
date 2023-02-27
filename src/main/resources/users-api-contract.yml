@@ -258,6 +258,30 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/ErrorMessage'
+
+  /vehicles/{id}:
+    get:
+      tags:
+        - vehicle
+      summary: Find vehicles by id
+      description: returns vehicles by id
+      operationId: getVehiclesById
+      parameters:
+        - name: id
+          in: path
+          description: vehicle id
+          required: true
+          schema:
+            type: integer
+      responses:
+        '200':
+          description: successful operation
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Vehicle'
+
+
 components:
   schemas:
     User:
@@ -300,7 +324,7 @@ components:
         roles:
           type: array
           items:
-              $ref: '#/components/schemas/Rol'
+            $ref: '#/components/schemas/Rol'
       required:
         - dni
         - name

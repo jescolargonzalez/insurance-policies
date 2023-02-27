@@ -9,6 +9,7 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.web.context.request.*;
 
 import java.util.*;
+import java.util.stream.*;
 
 @RestController
 public class PolicyesControllerImp implements PolizyesApi {
@@ -18,11 +19,16 @@ public class PolicyesControllerImp implements PolizyesApi {
     @Autowired
     private PolicyDtoMapper policyDtoMapper;
 
-    @Override
-    public Optional<NativeWebRequest> getRequest() { return PolizyesApi.super.getRequest(); }
+    @Autowired
+    private PolicyTypeDtoMapper policyTypeDtoMapper;
 
     @Override
-    public ResponseEntity<PolicyDto> createPolicy(PolicyDto policyDto){
+    public Optional<NativeWebRequest> getRequest() {
+        return PolizyesApi.super.getRequest();
+    }
+
+    @Override
+    public ResponseEntity<PolicyDto> createPolicy(PolicyDto policyDto) {
         var policyDomain = policyDtoMapper.DtoToDomain(policyDto);
         policyDomain = policyService.save(policyDomain);
         var policyDtoResponse = policyDtoMapper.domainToDTO(policyDomain);
@@ -34,13 +40,20 @@ public class PolicyesControllerImp implements PolizyesApi {
         if (tomadorDni != null) {
             var aux = policyService.findByUserDni(tomadorDni);
             return ResponseEntity.ok(policyDtoMapper.domainToDTO(aux));
-        }
-        else {
-            var aux = policyService.findByUserDni(benefitDni);
+        } else {
+            var aux = policyService.findByBenefitDni(benefitDni);
             return ResponseEntity.ok(policyDtoMapper.domainToDTO(aux));
         }
     }
 
+    @Override
+    public ResponseEntity<PolicyesTypesWrapperDto> findTypesOfPolicy() {
+        var policyTypesDomain = policyService.findAllPolicyType();
+        var policyTypesDto = policyTypesDomain.stream()
+                .map(policyTypeDtoMapper::domainToDto).collect(Collectors.toList());
+        var responseDto = new PolicyesTypesWrapperDto();
+        responseDto.setTypes(policyTypesDto);
+        return ResponseEntity.ok(responseDto);
 
-
+    }
 }

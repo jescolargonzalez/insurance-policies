@@ -22,6 +22,9 @@ public class PolicyEntity {
     @Column(name = "user_id")
     private Integer tomadorId;
 
+    @Column(name = "vehicle_id")
+    private Integer vehicleId;
+
     @Column(name = "benefit_dni")
     private String benefitDni;
 
