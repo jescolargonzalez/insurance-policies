@@ -96,6 +96,12 @@ paths:
           required: false
           schema:
             type: string
+        - name: Authorization
+          in: header
+          description: vehicle id
+          required: true
+          schema:
+            type: string
       responses:
         '200':
           description: successful operation

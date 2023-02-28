@@ -31,31 +31,14 @@ public class JwtRequestFilter extends OncePerRequestFilter {
 
         final String authorizationHeader = request.getHeader("Authorization");
 
-        String username = null;
-        String jwt = null;
-
-        if (authorizationHeader != null && authorizationHeader.startsWith("Bearer ")) {
-            jwt = authorizationHeader.substring(7);
-            username = jwtUtilService.extractUsername(jwt);
-        }
+        if (authorizationHeader != null && SecurityContextHolder.getContext().getAuthentication() == null) {
+            UserDetails userDetails = this.userDetailsService.loadUserByUsername(authorizationHeader);
+            UsernamePasswordAuthenticationToken authenticationToken = new UsernamePasswordAuthenticationToken(
+                    userDetails, null, userDetails.getAuthorities());
 
 
-        if (username != null && SecurityContextHolder.getContext().getAuthentication() == null) {
-
-            // CONSULTA A BASE DE DATOS (QUE ESTA HARDCODEADA EN ESTE EJEMPLO) Y DEVUELVE UN OBJETO QUE CONTIENE EL NOMBRE Y LA CONTRASEÑA
-            UserDetails userDetails = this.userDetailsService.loadUserByUsername(username);
-
-            // AHORA VALIDA SI EL TOKEN ES VALIDO (SI EL USUARIO QUE VIENE EN EL JSON QUE HAY EN EL TOKEN COINCIDE CON EL DE BBDD Y
-            // SI HA EXPIRADO O NO)
-            if (jwtUtilService.validateToken(jwt, userDetails)) {
-
-
-                // EN ESTA MARAÑA DE CODIGO SE RELLENA EL SECURITY
-                UsernamePasswordAuthenticationToken authenticationToken = new UsernamePasswordAuthenticationToken(
-                        userDetails, null, userDetails.getAuthorities());
-                authenticationToken.setDetails(new WebAuthenticationDetailsSource().buildDetails(request));
-                SecurityContextHolder.getContext().setAuthentication(authenticationToken);
-            }
+            authenticationToken.setDetails(new WebAuthenticationDetailsSource().buildDetails(request));
+            SecurityContextHolder.getContext().setAuthentication(authenticationToken);
         }
         chain.doFilter(request, response);
     }

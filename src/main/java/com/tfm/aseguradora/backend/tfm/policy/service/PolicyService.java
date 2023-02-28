@@ -38,7 +38,7 @@ public class PolicyService {
     @Transactional(readOnly = true)
     public PolicyDomain findByUserDni(String userDni){
 
-        var userListWrapper = usersApi.getUsers(userDni,null);
+        var userListWrapper = usersApi.getUsers(null, userDni, null);
 
         var userDto = userListWrapper.getUsers().get(0);
 

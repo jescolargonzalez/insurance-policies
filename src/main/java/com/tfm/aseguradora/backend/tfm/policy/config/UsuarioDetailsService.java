@@ -1,5 +1,6 @@
 package com.tfm.aseguradora.backend.tfm.policy.config;
 
+import com.tfm.aseguradora.backend.tfm.policy.service.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.*;
 import org.springframework.security.core.userdetails.User;
@@ -21,9 +22,15 @@ public class UsuarioDetailsService implements UserDetailsService  {
     // 3.- AQUI SUSTITUIR EL USO DE UserEntity POR EL UserDto que devuelva
     @Autowired
     private UserApi userApi;
+
+    @Autowired
+    private JwtUtilService jwtUtilService;
+
     @Override
-    public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
-        var userListWrapper = userApi.getUsers(null, username);
+    public UserDetails loadUserByUsername(String token) throws UsernameNotFoundException {
+
+        var username = jwtUtilService.extractUsername(token.replace("Bearer ", ""));
+        var userListWrapper = userApi.getUsers(token, null, username);
         var userDto = userListWrapper.getUsers().get(0);
         if (userDto != null) {
             var roles = userDto.getRoles();
@@ -33,7 +40,7 @@ public class UsuarioDetailsService implements UserDetailsService  {
                 String[] rolesListString = roles.stream()
                         .map(RolDto::getNombre)
                         .toArray(String[]::new);
-                userBuilder.password(encryptedPassword).roles(rolesListString);
+                userBuilder.password(encryptedPassword).username(token).roles(rolesListString);
                 return userBuilder.build();
             } else {
                 throw new UsernameNotFoundException("Username [" + username + "] has not permissions");
