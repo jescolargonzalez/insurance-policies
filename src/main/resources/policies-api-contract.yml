@@ -102,7 +102,6 @@ paths:
           required: true
           schema:
             type: string
-
       summary: execute peritage action to part
       description: execute peritage action to part
       operationId: doPeritageAction
@@ -129,7 +128,7 @@ paths:
           description: idPoliza of part that needs to be fetched
           required: true
           schema:
-            type: string     
+            type: integer
       summary: Place a part for a policy
       description: Place a new part in the policy?
       operationId: savePart
@@ -141,10 +140,6 @@ paths:
       responses:
         '201':
           description: successful operation
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/Policy'
         '405':
             description: Invalid input
             
@@ -219,8 +214,6 @@ components:
         id:
           type: integer
           format: int64
-        benefitDni:
-          type: string
         affectedDni:
           type: string
         policyId:
@@ -231,7 +224,6 @@ components:
         pay:
           type: boolean 
       required:
-        - benefitDni
         - affectedDni
         - policyId
 

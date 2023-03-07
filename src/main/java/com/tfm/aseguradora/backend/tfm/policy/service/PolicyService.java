@@ -89,6 +89,7 @@ public class PolicyService {
             throw new BadRequestException("The policy type " + policyDomain.getTypeId() + " does not exist");
         }
     }
+
     @Transactional(readOnly = true)
     public PolicyTypeDomain findPolicyTypeById(int type){
         var aux = policyTypeJpaRepository.findById(type);
@@ -97,6 +98,17 @@ public class PolicyService {
         }else{
             throw new ResourceNotFoundException(PolicyTypeDomain.class, type);
         }
+    }
+
+    @Transactional(readOnly = true)
+    public PolicyDomain findPolicyById(Integer id){
+        var aux = policyJpaRepository.findById(id);
+        if(aux.isPresent()){
+            return policyMapper.fromEntityToDomain(aux.get());
+        }else{
+            throw new ResourceNotFoundException(PolicyDomain.class,id);
+        }
+
     }
 
     @Transactional(readOnly = true)

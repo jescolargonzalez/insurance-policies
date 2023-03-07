@@ -11,6 +11,9 @@ CREATE TABLE `decissions` (
                               PRIMARY KEY (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
+INSERT INTO decissions (name) VALUES('no siniestro');
+INSERT INTO decissions (name) VALUES('en tramite');
+INSERT INTO decissions (name) VALUES('siniestro');
 
 CREATE TABLE `policies_types` (
                                   `id` int(11) NOT NULL AUTO_INCREMENT,

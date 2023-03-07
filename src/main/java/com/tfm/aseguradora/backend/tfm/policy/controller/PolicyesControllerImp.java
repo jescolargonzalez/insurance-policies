@@ -17,11 +17,13 @@ public class PolicyesControllerImp implements PolizyesApi {
     @Autowired
     private PolicyService policyService;
     @Autowired
+    private PartService partService;
+    @Autowired
     private PolicyDtoMapper policyDtoMapper;
-
     @Autowired
     private PolicyTypeDtoMapper policyTypeDtoMapper;
-
+    @Autowired
+    private PartDtoMapper partDtoMapper;
     @Override
     public Optional<NativeWebRequest> getRequest() {
         return PolizyesApi.super.getRequest();
@@ -54,6 +56,16 @@ public class PolicyesControllerImp implements PolizyesApi {
         var responseDto = new PolicyesTypesWrapperDto();
         responseDto.setTypes(policyTypesDto);
         return ResponseEntity.ok(responseDto);
-
     }
+
+    @Override
+    public ResponseEntity<Void> savePart(Integer idPolicy, PartDto partDto) {
+        partDto.setPolicyId(idPolicy.longValue());
+        var part = partDtoMapper.DtoToDomain(partDto);
+        partService.savePart(part);
+        return ResponseEntity.ok().build();
+    }
+
+
+
 }
