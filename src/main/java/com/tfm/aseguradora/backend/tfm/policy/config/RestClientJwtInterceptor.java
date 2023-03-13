@@ -10,7 +10,11 @@ public class RestClientJwtInterceptor implements ClientHttpRequestInterceptor {
 
     @Override
     public ClientHttpResponse intercept(HttpRequest request, byte[] body, ClientHttpRequestExecution execution) throws IOException {
-        if (request.getURI().toString().contains("/users")) {
+        if (request.getURI().toString().contains("/users") && request.getMethod().equals(HttpMethod.POST)) {
+            return execution.execute(request, body);
+        }
+        else if (request.getURI().toString().contains("/users") &&
+                request.getHeaders().getFirst("skipSecurity").equals("true")) {
             return execution.execute(request, body);
         }
         else {
@@ -19,5 +23,4 @@ public class RestClientJwtInterceptor implements ClientHttpRequestInterceptor {
             return execution.execute(request, body);
         }
     }
-
 }

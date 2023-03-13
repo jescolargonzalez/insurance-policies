@@ -8,9 +8,8 @@ import com.tfm.aseguradora.backend.tfm.policy.service.mapper.*;
 
 import com.tfm.aseguradora.backend.middle.users.client.UserApi;
 import com.tfm.aseguradora.backend.middle.users.client.VehicleApi;
-import com.tfm.aseguradora.generated.backend.tfm.policies.controller.*;
-import org.jetbrains.annotations.*;
 import org.springframework.beans.factory.annotation.*;
+import org.springframework.security.core.context.*;
 import org.springframework.stereotype.*;
 import org.springframework.transaction.annotation.*;
 import org.springframework.web.client.*;
@@ -31,14 +30,15 @@ public class PolicyService {
     private PolicyMapper policyMapper;
     @Autowired
     private UserApi usersApi;
-
     @Autowired
     private VehicleApi vehicleApi;
 
     @Transactional(readOnly = true)
     public PolicyDomain findByUserDni(String userDni){
 
-        var userListWrapper = usersApi.getUsers(null, userDni, null);
+        var userListWrapper = usersApi.getUsers(SecurityContextHolder.getContext().getAuthentication().getName(),
+                userDni, null, "false");
+
 
         var userDto = userListWrapper.getUsers().get(0);
 

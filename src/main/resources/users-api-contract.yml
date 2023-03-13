@@ -98,10 +98,17 @@ paths:
             type: string
         - name: Authorization
           in: header
-          description: vehicle id
+          description: authorization
           required: true
           schema:
             type: string
+        - name: skipSecurity
+          in: header
+          description: Esta cabecera sirve unicamente para que cuando se llame este endpoint desde el FILTRO DE SEGURIDAD, se pueda utilizar para discernir si la llamada viene desde el filtro o desde servicios de negocio
+          required: false
+          schema:
+            type: string
+            default: 'false'
       responses:
         '200':
           description: successful operation

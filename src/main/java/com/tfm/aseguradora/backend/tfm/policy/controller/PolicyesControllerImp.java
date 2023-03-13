@@ -36,7 +36,7 @@ public class PolicyesControllerImp implements PolizyesApi {
         var policyDtoResponse = policyDtoMapper.domainToDTO(policyDomain);
         return ResponseEntity.status(HttpStatus.CREATED).body(policyDtoResponse);
     }
-
+    //TODO error al haber varios benefitDNI ==    ||     no funciona la parte del tomadorDni
     @Override
     public ResponseEntity<PolicyDto> getPolicyByDni(String tomadorDni, String benefitDni) {
         if (tomadorDni != null) {
@@ -57,7 +57,7 @@ public class PolicyesControllerImp implements PolizyesApi {
         responseDto.setTypes(policyTypesDto);
         return ResponseEntity.ok(responseDto);
     }
-
+//TODO dice err501 methods no implementado :S
     @Override
     public ResponseEntity<Void> savePart(Integer idPolicy, PartDto partDto) {
         partDto.setPolicyId(idPolicy.longValue());
@@ -66,6 +66,5 @@ public class PolicyesControllerImp implements PolizyesApi {
         return ResponseEntity.ok().build();
     }
 
-
-
 }
+

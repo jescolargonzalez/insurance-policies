@@ -82,7 +82,6 @@ paths:
           content:
             application/json:
               schema:
-                type: object
                 $ref: '#/components/schemas/PolicyesTypesWrapper'
 
   /polizyes/{idPolicy}/parts/{idPart}/peritage:
@@ -167,9 +166,8 @@ paths:
         '400':
           description: Invalid benefitDni supplied
         '404':
-            description: part not found         
-    
-            
+            description: part not found
+
 components:
   schemas:
     Policy:
