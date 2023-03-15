@@ -7,6 +7,7 @@ import java.util.*;
 
 public interface PolicyJpaRepository extends JpaRepository<PolicyEntity, Integer>{
 
-    Optional<PolicyEntity> findByTomadorId(Integer tomadorId);
-    Optional<PolicyEntity> findByBenefitDni(String benefitDni);
+    List<PolicyEntity> findByTomadorId(Integer tomadorId);
+    List<PolicyEntity> findByBenefitDni(String benefitDni);
+
 }

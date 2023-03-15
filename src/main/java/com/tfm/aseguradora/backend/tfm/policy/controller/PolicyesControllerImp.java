@@ -36,15 +36,23 @@ public class PolicyesControllerImp implements PolizyesApi {
         var policyDtoResponse = policyDtoMapper.domainToDTO(policyDomain);
         return ResponseEntity.status(HttpStatus.CREATED).body(policyDtoResponse);
     }
-    //TODO error al haber varios benefitDNI ==    ||     no funciona la parte del tomadorDni
+    //TODO error al haber varios DNI ==
     @Override
-    public ResponseEntity<PolicyDto> getPolicyByDni(String tomadorDni, String benefitDni) {
+    public ResponseEntity<PolicyesWrapperDto> getPolicyByDni(String tomadorDni, String benefitDni) {
         if (tomadorDni != null) {
+            var responseDto = new PolicyesWrapperDto();
             var aux = policyService.findByUserDni(tomadorDni);
-            return ResponseEntity.ok(policyDtoMapper.domainToDTO(aux));
-        } else {
-            var aux = policyService.findByBenefitDni(benefitDni);
-            return ResponseEntity.ok(policyDtoMapper.domainToDTO(aux));
+            var auxDto = aux.stream()
+                    .map(policyDtoMapper::domainToDTO)
+                    .collect(Collectors.toList());
+            responseDto.setTypes(auxDto);
+            return ResponseEntity.ok(responseDto);
+            } else {
+                var responseDto = new PolicyesWrapperDto();
+                var aux = policyService.findByBenefitDni(benefitDni);
+                var auxDto = aux.stream().map(policyDtoMapper::domainToDTO).collect(Collectors.toList());
+                responseDto.setTypes(auxDto);
+                return ResponseEntity.ok(responseDto);
         }
     }
 

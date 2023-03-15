@@ -43,7 +43,7 @@ paths:
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/Policy'          
+                $ref: '#/components/schemas/PolicyesWrapper'
         '400':
           description: Invalid DNI supplied
         '404':
@@ -205,6 +205,14 @@ components:
           type: array
           items:
             $ref: '#/components/schemas/PolicyType'
+
+    PolicyesWrapper:
+      type: object
+      properties:
+        types:
+          type: array
+          items:
+            $ref: '#/components/schemas/Policy'
 
     Part:
       type: object

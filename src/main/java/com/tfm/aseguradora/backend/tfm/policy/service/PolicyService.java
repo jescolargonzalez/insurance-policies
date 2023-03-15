@@ -1,6 +1,7 @@
 package com.tfm.aseguradora.backend.tfm.policy.service;
 
 import com.tfm.aseguradora.backend.tfm.policy.controller.mapper.*;
+import com.tfm.aseguradora.backend.tfm.policy.dataaccess.entity.*;
 import com.tfm.aseguradora.backend.tfm.policy.dataaccess.repository.*;
 import com.tfm.aseguradora.backend.tfm.policy.service.domain.*;
 import com.tfm.aseguradora.backend.tfm.policy.service.exception.*;
@@ -34,31 +35,42 @@ public class PolicyService {
     private VehicleApi vehicleApi;
 
     @Transactional(readOnly = true)
-    public PolicyDomain findByUserDni(String userDni){
+    public List<PolicyDomain> findByUserDni(String userDni){
 
         var userListWrapper = usersApi.getUsers(SecurityContextHolder.getContext().getAuthentication().getName(),
                 userDni, null, "false");
 
+        var idUser = new ArrayList<Integer>();
+        var auxDom = new ArrayList<PolicyDomain>();
 
-        var userDto = userListWrapper.getUsers().get(0);
-
-        var idDto = userDto.getId().intValue();
-
-        var policyOpt = policyJpaRepository.findByTomadorId(idDto);
-
-        if(policyOpt.isPresent()){
-            return policyMapper.fromEntityToDomain(policyOpt.get());
+        for(int i = 0 ; i < userListWrapper.getUsers().size() ; i++){
+            var userDto = userListWrapper.getUsers().get(i);
+            var idDto = userDto.getId().intValue();
+            idUser.add(idDto);
         }
-        else{
+
+        for (Integer aux : idUser) {
+            var policyOpt = policyJpaRepository.findByTomadorId(aux);
+            for (PolicyEntity policyEntity : policyOpt) {
+                auxDom.add(policyMapper.fromEntityToDomain(policyEntity));
+            }
+        }
+
+        if(!auxDom.isEmpty()){
+            return auxDom;
+        }else{
             throw new ResourceNotFoundException(PolicyDomain.class, userDni);
         }
     }
 
     @Transactional(readOnly = true)
-    public PolicyDomain findByBenefitDni(String benefitDni) {
+    public List<PolicyDomain> findByBenefitDni(String benefitDni) {
         var opt = policyJpaRepository.findByBenefitDni(benefitDni);
-        if(opt.isPresent()){
-            return policyMapper.fromEntityToDomain(opt.get());
+        var auxDom = opt.stream()
+                .map(policyMapper::fromEntityToDomain)
+                .collect(Collectors.toList());
+        if(!opt.isEmpty()){
+            return auxDom;
         }else{
             throw new BadRequestException("not exist that dni");
         }
