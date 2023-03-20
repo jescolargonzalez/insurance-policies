@@ -7,10 +7,13 @@ import org.mapstruct.*;
 @Mapper(componentModel = "spring")
 public interface PartMapper {
     @Mappings({
-            @Mapping(source = "policy.id", target = "id")
+            @Mapping(source = "policy.id", target = "policyId")
     })
     PartDomain fromEntityToDomain(PartEntity partEntity);
 
+    @Mappings({
+            @Mapping(source = "policyId", target = "policy.id")
+    })
     PartEntity fromDomainToEntity(PartDomain partDomain);
 
 

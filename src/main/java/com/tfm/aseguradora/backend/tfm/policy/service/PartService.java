@@ -25,13 +25,10 @@ public class PartService {
             var part = partMapper.fromDomainToEntity(partDomain);
             part.setDeleted(Boolean.FALSE);
             partJpaRepository.save(part);
-            return partMapper.fromEntityToDomain(part);
+            var rs = partMapper.fromEntityToDomain(part);
+            return rs ;
         }else {
             throw new BadRequestException("The policy with id " + partDomain.getPolicyId() + " does not exist");
         }
-
     }
-
-
-
 }
