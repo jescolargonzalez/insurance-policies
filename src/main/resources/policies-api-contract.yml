@@ -94,13 +94,13 @@ paths:
           description: idPoliza of part that needs to be fetched
           required: true
           schema:
-            type: string
+            type: integer
         - name: idPart
           in: path
           description: idPart that needs to be fetched
           required: true
           schema:
-            type: string
+            type: integer
       summary: execute peritage action to part
       description: execute peritage action to part
       operationId: doPeritageAction

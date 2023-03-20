@@ -8,6 +8,4 @@ import java.util.*;
 public interface PartJpaRepository extends JpaRepository<PartEntity,Integer> {
 
 
-
-
 }

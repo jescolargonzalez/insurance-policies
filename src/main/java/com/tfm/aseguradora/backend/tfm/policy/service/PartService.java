@@ -31,4 +31,14 @@ public class PartService {
             throw new BadRequestException("The policy with id " + partDomain.getPolicyId() + " does not exist");
         }
     }
+
+
+    public PartDomain findPartById(Integer id){
+        var aux = partJpaRepository.findById(id);
+        if(aux.isPresent()){
+            return partMapper.fromEntityToDomain(aux.get());
+        }else{
+            throw new ResourceNotFoundException(PartDomain.class,id);
+        }
+    }
 }
