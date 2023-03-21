@@ -8,6 +8,9 @@ import org.springframework.beans.factory.annotation.*;
 import org.springframework.stereotype.*;
 import org.springframework.transaction.annotation.*;
 
+import java.util.*;
+import java.util.stream.*;
+
 @Service
 public class PartService {
 
@@ -39,6 +42,16 @@ public class PartService {
             return partMapper.fromEntityToDomain(aux.get());
         }else{
             throw new ResourceNotFoundException(PartDomain.class,id);
+        }
+    }
+
+    public List<PartDomain> findAllByPolicyIds(List<Integer> list) {
+        var aux = partJpaRepository.findAllByPolicyIdIn(list);
+        if(!aux.isEmpty()){
+            var auxDom = aux.stream().map(partMapper::fromEntityToDomain).collect(Collectors.toList());
+            return auxDom;
+        }else{
+            throw new ResourceNotFoundException();
         }
     }
 }

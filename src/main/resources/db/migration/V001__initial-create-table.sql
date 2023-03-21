@@ -21,7 +21,7 @@ CREATE TABLE `policies_types` (
                                   `descr` varchar(255) NOT NULL,
                                   `create_time` timestamp NOT NULL DEFAULT current_timestamp(),
                                   `update_time` timestamp NOT NULL DEFAULT current_timestamp() ON UPDATE current_timestamp(),
-                                  `deleted` tinyint(4) DEFAULT 0,
+                                  `deleted` tinyint(4) NOT NULL DEFAULT 0,
                                   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
@@ -47,8 +47,8 @@ CREATE TABLE `parts` (
                          `affected_dni` varchar(10) NOT NULL,
                          `add_info` varchar(255) NOT NULL,
                          `pay` tinyint(4) DEFAULT NULL,
-                         `create_time` timestamp NULL DEFAULT current_timestamp(),
-                         `update_time` timestamp NULL DEFAULT current_timestamp() ON UPDATE current_timestamp(),
+                         `create_time` timestamp NOT NULL DEFAULT current_timestamp(),
+                         `update_time` timestamp NOT NULL DEFAULT current_timestamp() ON UPDATE current_timestamp(),
                          `deleted` tinyint(4) NOT NULL DEFAULT 0,
                          PRIMARY KEY (`id`),
                          KEY `FKrpcxt1t8jls9i4hmpvuo0l73u` (`policy_id`),

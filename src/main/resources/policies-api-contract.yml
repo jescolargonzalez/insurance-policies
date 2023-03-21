@@ -142,7 +142,7 @@ paths:
         '405':
             description: Invalid input
             
-  /users/{benefitDni}/parts:
+  /parts:
     get:
       tags:
         - part
@@ -151,7 +151,7 @@ paths:
       operationId: getPartsByDni
       parameters:
         - name: benefitDni
-          in: path
+          in: query
           description: '¿?-¿?'
           required: true
           schema:
@@ -162,7 +162,7 @@ paths:
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/Part'          
+                $ref: '#/components/schemas/PartsListWrapper'
         '400':
           description: Invalid benefitDni supplied
         '404':

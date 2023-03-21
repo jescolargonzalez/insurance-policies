@@ -7,5 +7,7 @@ import java.util.*;
 
 public interface PartJpaRepository extends JpaRepository<PartEntity,Integer> {
 
+    @Query(name = "select p from PartEntity p where p.")
+    List<PartEntity> findAllByPolicyIdIn(List<Integer> id);
 
 }

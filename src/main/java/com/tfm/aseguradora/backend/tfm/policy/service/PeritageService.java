@@ -33,7 +33,6 @@ public class PeritageService{
                 var decission = decissionJpaRepository.findById(auxDecission).get();
                 peritage.setDecission(decission);
             }
-
             peritageJpaRepository.save(peritage);
             return peritageMapper.fromEntityToDomain(peritage);
         }else {

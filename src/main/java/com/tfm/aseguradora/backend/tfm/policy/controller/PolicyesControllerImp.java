@@ -18,23 +18,17 @@ public class PolicyesControllerImp implements PolizyesApi {
     private PolicyService policyService;
     @Autowired
     private PartService partService;
-
     @Autowired
     private PeritageService peritageService;
 
     @Autowired
     private PeritageDtoMapper peritageDtoMapper;
-
     @Autowired
     private PolicyDtoMapper policyDtoMapper;
     @Autowired
     private PolicyTypeDtoMapper policyTypeDtoMapper;
     @Autowired
     private PartDtoMapper partDtoMapper;
-    @Override
-    public Optional<NativeWebRequest> getRequest() {
-        return PolizyesApi.super.getRequest();
-    }
 
     @Override
     public ResponseEntity<PolicyDto> createPolicy(PolicyDto policyDto) {
@@ -72,7 +66,7 @@ public class PolicyesControllerImp implements PolizyesApi {
         responseDto.setTypes(policyTypesDto);
         return ResponseEntity.ok(responseDto);
     }
-//TODO
+
     @Override
     public ResponseEntity<Void> savePart(Integer idPolicy, PartDto partDto) {
         partDto.setPolicyId(idPolicy.longValue());
@@ -86,7 +80,6 @@ public class PolicyesControllerImp implements PolizyesApi {
 
     @Override
     public ResponseEntity<PeritageDto> doPeritageAction(Integer idPolicy, Integer idPart, PeritageDto peritageDto) {
-
         policyService.findPolicyById(idPolicy);
         var opt = partService.findPartById(idPart);
         if(opt.getId() == idPart){
